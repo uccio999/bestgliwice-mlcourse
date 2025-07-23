@@ -6,7 +6,6 @@ import torch.nn as nn
 def visualize_data(X_train, y_train, X_test=None, y_test=None):
     """
     Visualize training data in green; test data in red if provided.
-    Handles Torch or NumPy inputs.
     """
     # Convert to NumPy if Torch
     X_train_np = X_train.numpy() if isinstance(X_train, torch.Tensor) else X_train
@@ -27,7 +26,6 @@ def visualize_data(X_train, y_train, X_test=None, y_test=None):
 def plot_true_vs_pred(X, y_true, y_pred):
     """
     Scatter plot against X: y_true in green, y_pred in blue; vertical lines show errors.
-    Handles Torch or NumPy inputs.
     """
     # Convert to NumPy if Torch
     X_np = X.numpy() if isinstance(X, torch.Tensor) else X
@@ -79,7 +77,7 @@ def plot_loss_surface(X, y, weight_point, bias_point):
 
 def generate_data(n_samples=100, noise=0.5, seed=42):
     """
-    Generate synthetic data from a 3rd-degree polynomial with added noise.
+    Generate synthetic data with added noise.
     Returns Torch tensors X (1D features) and y (targets).
     """
     np.random.seed(seed)
@@ -90,7 +88,6 @@ def generate_data(n_samples=100, noise=0.5, seed=42):
 def train_test_split(X, y, test_size=0.2, seed=None):
     """
     Split data into train and test sets. Seed is optional for reproducibility.
-    Handles Torch inputs; returns Torch tensors.
     """
     # Convert to NumPy for shuffling, then back to Torch
     if seed is not None:
@@ -107,7 +104,6 @@ def train_test_split(X, y, test_size=0.2, seed=None):
 def create_polynomial_features(X, degree):
     """
     Create polynomial features up to the given degree.
-    Handles Torch input; returns Torch tensor: [1, X, X^2, ..., X^degree].
     """
     powers = torch.arange(1, degree + 1, dtype=torch.float32)
     return torch.pow(X.unsqueeze(1), powers).squeeze() if degree > 0 else torch.ones_like(X).unsqueeze(1)
